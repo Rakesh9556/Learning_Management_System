@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 public class User {
 	private String fullname;
-//	private String username; // dont use it
 	private String email;
 	private String password;
 	private String branch;
@@ -40,21 +39,6 @@ public class User {
 		this.fullname = fullname;
 	}
 	
-//	public String getUsername() {
-//		return username;
-//	}
-//	public void setUsername(String username) {
-//		if(username == null || username.trim().isEmpty()) {
-//			throw new IllegalArgumentException("Username cannot be empty");
-//		}
-//		if(username.length() < 3 || username.length() > 12) {
-//			throw new IllegalArgumentException("Username must be betwwen 3 to 12 characters");
-//		}
-//		if(!username.matches("^[A-Za-z][A-Za-z0-9_]*$")) {
-//			throw new IllegalArgumentException("Username must start with a letter.");
-//		}
-//		this.username = username;
-//	}
 	public String getEmail() {
 		return email;
 	}
