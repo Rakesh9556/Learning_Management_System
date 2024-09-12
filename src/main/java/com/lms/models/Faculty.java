@@ -6,7 +6,7 @@ public class Faculty extends User {
     private LocalDate joiningDate;
     private String designation;
 
-    // Constructor
+    // Constructor         
     public Faculty(String fullname, String email, String password, String branch, Role role, LocalDate joiningDate, String designation) {
         super(fullname, email, password, branch, role);
         this.setJoiningDate(joiningDate);

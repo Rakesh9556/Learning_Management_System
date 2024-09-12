@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.lms.util.DbConnect;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
         String contact = request.getParameter("contact");
 
         try {
-            Connection conn = DBConnection.getConnection();
+            Connection conn = DbConnect.getConnnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password, email, contact) VALUES (?, ?, ?, ?)");
             stmt.setString(1, username);
             stmt.setString(2, password);

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DbConnect {
 	
 	// 1. create a method to establish and return database connection
-	public Connection getConnnection() throws SQLException, ClassNotFoundException {
+	public static Connection getConnnection() throws SQLException, ClassNotFoundException {
 		
 		// 2. Define database fields
 		String DB_URI = "";
