@@ -2,14 +2,18 @@ package com.lms.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class User {
 	private String fullname;
 	private String email;
 	private String password;
-	private String branch;
+	private Department department;
+	private Specialization specialization;
 	private Role role;
+	private String universityName;
 	private String avatar;
+	private List<String> notifications;
 	private boolean isLoggedIn;
 	private LocalDate createdAt;
 	private LocalDateTime updatedAt;
@@ -17,15 +21,18 @@ public class User {
 	
 	
 	// Constructor
-	public User(String fullname, String email, String password, String branch,Role role) {
+	public User(String fullname, String email, String password, Department department, Specialization specialization, Role role, String universityName) {
 		this.setFullname(fullname);
 		this.setEmail(email);
 		this.setPassword(password);
-		this.setBranch(branch);
+		this.setDepartment(department);
+		this.setSpecialization(specialization);
 		this.setRole(role);
+		this.setUniversityName(universityName);
 		this.isLoggedIn = false;
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDateTime.now();
+		// we will handle notification here later
 	}
 	
 	
@@ -39,6 +46,7 @@ public class User {
 		this.fullname = fullname;
 	}
 	
+	
 	public String getEmail() {
 		return email;
 	}
@@ -48,6 +56,7 @@ public class User {
 		}
 		this.email = email;
 	}
+	
 	
 	public String getPassword() {
 		return password;
@@ -59,15 +68,27 @@ public class User {
 		this.password = password;
 	}
 	
-	public String getBranch() {
-		return branch;
+	
+	public Department getDepartment() {
+		return department;
 	}
-	public void setBranch(String branch) {
-		if(branch == null || branch.trim().isEmpty()) {
-			throw new IllegalArgumentException("Bracnh cannot be empty");
+	public void setDepartment(Department department) {
+		if(department == null) {
+			throw new IllegalArgumentException("Department cannot be empty");
 		}
-		this.branch = branch;
+		this.department = department;
 	}
+	
+	public Specialization getSpecialization() {
+		return specialization;
+	}
+	public void setSpecialization(Specialization specialization) {
+		if(specialization == null) {
+			throw new IllegalArgumentException("Department cannot be empty");
+		}
+		this.specialization = specialization;
+	}
+	
 	
 	public Role getRole() {
 		return role;
@@ -78,6 +99,26 @@ public class User {
         }
         this.role = role;
 	}
+	
+	
+	public String getUniversityName() {
+		return universityName;
+	}
+	public void setUniversityName(String universityName) {
+		if(universityName == null || universityName.trim().isEmpty()) {
+			throw new IllegalArgumentException("University name cannot be empty");
+		}
+		this.universityName = universityName;
+	}
+	
+	
+	public List<String> getNotifications() {
+		return notifications;
+	}
+	public void setNotifications(List<String> notifications) {
+		this.notifications = notifications;
+	}
+	
 	
 	// we will set avatar after successful login
 	public String getAvatar() {
@@ -94,12 +135,14 @@ public class User {
 		
 	}
 	
+	
 	public boolean isLoggedIn() {
 		return isLoggedIn;
 	}
 	public void setLoggedIn(boolean isLoggedIn) {
 		this.isLoggedIn = isLoggedIn;
 	}
+	
 	
 	public LocalDate getCreatedAt() {
 		return createdAt;
@@ -110,8 +153,8 @@ public class User {
 	}
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-	
-	
+	}	
 	
 }
+
+

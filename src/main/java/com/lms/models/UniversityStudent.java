@@ -1,29 +1,38 @@
 package com.lms.models;
 
-public class UniversityStudent extends User  {
-	private String regdNo;
+public class UniversityStudent extends Student  {
+	private String universityId;
+	private String universityEmail;
 	
-	public UniversityStudent(
-			String regdNo,
-			String fullname,
-			String email,
-			String password,
-			String branch,
-			Role role) {
-		super(fullname, email, password, branch, role);
-		this.regdNo = regdNo;	
+	
+	public UniversityStudent(String fullname, String email, String password, Department department,
+			Specialization specialization, Role role, String universityName, StudentType studentType, String universityId, String universityEmail) {
+		super(fullname, email, password, department, specialization, role, universityName, studentType);
+		this.setUniversityId(universityId);
+		this.setUniversityEmail(universityEmail);
 	}
-
-	public String getRegdNo() {
-		return regdNo;
+	
+	
+	
+	public String getUniversityId() {
+		return universityId;
 	}
-	public void setRegdNo(String regdNo) {
-		if(regdNo == null || regdNo.trim().isEmpty() || regdNo.length() > 12) {
-			throw new IllegalArgumentException("Username must be 12 digit");
+	public void setUniversityId(String universityId) {
+		if(universityId == null || universityId.trim().isEmpty() || universityId.length() > 12) {
+			throw new IllegalArgumentException("Invalid university id (must be 12 digit)!");
 		}
-		this.regdNo = regdNo;
+		this.universityId = universityId;
 	}
-	
+	public String getUniversityEmail() {
+		return universityEmail;
+		
+	}
+	public void setUniversityEmail(String universityEmail) {
+		if(universityEmail == null || universityEmail.trim().isEmpty() || !universityEmail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+			throw new IllegalArgumentException("Email is invalid");
+		}
+		this.universityEmail = universityEmail;
+	}
 	
 	
 }
