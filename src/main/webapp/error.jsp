@@ -1,21 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Failed</title>
+    <title>Error</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a CSS file -->
 </head>
 <body>
-    <h2>Oops! Something went wrong during your registration process.</h2>
-    <p>Please try again later or go back to the <a href="registration.jsp">registration page</a>.</p>
-
-    <!-- Display the detailed error message if it's available -->
-    <h3>Error Details:</h3>
-    <p>
-        <%= (request.getAttribute("errorMessage") != null) 
-            ? request.getAttribute("errorMessage") 
-            : "An unknown error occurred." 
-        %>
-    </p>
+    <div class="container">
+        <h1 style="color: red;">Registration Error</h1>
+        <p>There was an issue with your registration:</p>
+        <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+        <a href="registration.jsp">Go back to Registration Page</a>
+    </div>
 </body>
 </html>

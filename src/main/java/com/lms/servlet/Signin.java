@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -37,14 +36,20 @@ public class Signin extends HttpServlet {
                 throw new SQLException("Connection to database failed");
             }
 
-            // SQL query to check user credentials
-            String sql;
-            if (userType.equals("STUDENT")) {
+            // SQL query to check user credentials based on userType
+            String sql = null;
+            if ("STUDENT".equals(userType)) {
                 sql = "SELECT * FROM student WHERE email = ? AND password = ?";
-            } else if (userType.equals("FACULTY")) {
+            } else if ("FACULTY".equals(userType)) {
                 sql = "SELECT * FROM faculty WHERE email = ? AND password = ?";
-            } else if (userType.equals("ADMIN")) {
+            } else if ("ADMIN".equals(userType)) {
                 sql = "SELECT * FROM admin WHERE email = ? AND password = ?";
+                // Only allow specific admins
+                if (!(email.equals("mandalpradeepta0@gmail.com") || email.equals("rakeshguru9556@gmail.com") || email.equals("prasadgouda2005@gmail.com"))) {
+                    request.setAttribute("errorMessage", "You are not authorized to access admin functions.");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    return;
+                }
             } else {
                 request.setAttribute("errorMessage", "Invalid user type.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -62,15 +67,21 @@ public class Signin extends HttpServlet {
                 // Set session attributes
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
+                session.setAttribute("fullname", rs.getString("fullname"));
                 session.setAttribute("userType", userType);
 
-                // Redirect to respective dashboard based on user type
-                if (userType.equals("STUDENT")) {
-                    response.sendRedirect("studentDashboard.jsp");
-                } else if (userType.equals("FACULTY")) {
-                    response.sendRedirect("facultyDashboard.jsp");
-                } else if (userType.equals("ADMIN")) {
-                    response.sendRedirect("adminDashboard.jsp");
+                // Add specific session attributes for each user type
+                if ("STUDENT".equals(userType)) {
+                    session.setAttribute("branch", rs.getString("branch"));
+                    session.setAttribute("regdNo", rs.getString("regd_no"));
+                    session.setAttribute("username", rs.getString("username"));
+                    response.sendRedirect("studentDashboard.jsp");  // Redirect to student dashboard
+                } else if ("FACULTY".equals(userType)) {
+                    session.setAttribute("joiningDate", rs.getString("joining_date"));
+                    session.setAttribute("designation", rs.getString("designation"));
+                    response.sendRedirect("facultyDashboard.jsp");  // Redirect to faculty dashboard
+                } else if ("ADMIN".equals(userType)) {
+                    response.sendRedirect("adminDashboard.jsp");  // Redirect to admin dashboard
                 }
             } else {
                 // If user does not exist, redirect to login page with error message

@@ -10,9 +10,9 @@ public class DbConnect {
 	public static Connection getConnnection() throws SQLException, ClassNotFoundException {
 		
 		// 2. Define database fields
-		String DB_URI = "";
-		String DB_USER = "";
-		String DB_PASSWORD = "";
+		String DB_URI = "jdbc:mysql://localhost:3306/learning";
+		String DB_USER = "root";
+		String DB_PASSWORD = "8260957889";
 		
 		Connection conn;
 		
