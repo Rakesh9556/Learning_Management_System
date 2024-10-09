@@ -1,27 +1,31 @@
 package com.lms.models;
 
 public class UniversityStudent extends Student  {
-	private String universityId;
+	private String studentId;
 	private String universityEmail;
 	
-	
-	public UniversityStudent(String fullname, String email, String password, Department department,
-			Specialization specialization, Role role, String universityName, StudentType studentType, String universityId, String universityEmail) {
-		super(fullname, email, password, department, specialization, role, universityName, studentType);
-		this.setUniversityId(universityId);
+	// No-argument constructor
+    public UniversityStudent() {
+        super(); 
+    }
+    
+    
+	public UniversityStudent(Role role, StudentType studentType, String fullname, String email, String password, String studentId, String universityName, Department department,
+			Specialization specialization, String universityEmail) {
+		super( role, studentType, fullname, email, password, universityName, department, specialization);
+		this.setStudentId(studentId);
 		this.setUniversityEmail(universityEmail);
+	}	
+	
+
+	public String getStudentId() {
+		return studentId;
 	}
-	
-	
-	
-	public String getUniversityId() {
-		return universityId;
-	}
-	public void setUniversityId(String universityId) {
-		if(universityId == null || universityId.trim().isEmpty() || universityId.length() > 12) {
-			throw new IllegalArgumentException("Invalid university id (must be 12 digit)!");
+	public void setStudentId(String studentId) {
+		if(studentId == null || studentId.trim().isEmpty() || studentId.length() > 12) {
+			throw new IllegalArgumentException("Invalid student id (must be 12 digit)!");
 		}
-		this.universityId = universityId;
+		this.studentId = studentId;
 	}
 	public String getUniversityEmail() {
 		return universityEmail;

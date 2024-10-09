@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class User {
+public abstract class User {
+	private Role role;
 	private String fullname;
 	private String email;
 	private String password;
+	private String universityName;
 	private Department department;
 	private Specialization specialization;
-	private Role role;
-	private String universityName;
 	private String avatar;
 	private List<String> notifications;
 	private boolean isLoggedIn;
@@ -21,18 +21,40 @@ public class User {
 	
 	
 	// Constructor
-	public User(String fullname, String email, String password, Department department, Specialization specialization, Role role, String universityName) {
+	public User(Role role, String fullname, String email, String password, String universityName, Department department, Specialization specialization) {
+		this.setRole(role);
 		this.setFullname(fullname);
 		this.setEmail(email);
 		this.setPassword(password);
+		this.setUniversityName(universityName);
 		this.setDepartment(department);
 		this.setSpecialization(specialization);
-		this.setRole(role);
-		this.setUniversityName(universityName);
 		this.isLoggedIn = false;
 		this.createdAt = LocalDate.now();
 		this.updatedAt = LocalDateTime.now();
 		// we will handle notification here later
+	}
+	
+	public User() {
+	    this.role = Role.STUDENT; 
+	    this.fullname = ""; 
+	    this.email = ""; 
+	    this.password = ""; 
+	    this.universityName = "";
+	    this.department = null; 
+	    this.specialization = null; 
+	 }
+
+	
+
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		if (role == null) {
+			throw new IllegalArgumentException("Role cannot be empty");
+	    }
+		this.role = role;
 	}
 	
 	
@@ -69,6 +91,17 @@ public class User {
 	}
 	
 	
+	public String getUniversityName() {
+		return universityName;
+	}
+	public void setUniversityName(String universityName) {
+		if(universityName == null || universityName.trim().isEmpty()) {
+			throw new IllegalArgumentException("University name cannot be empty");
+		}
+		this.universityName = universityName;
+	}
+	
+	
 	public Department getDepartment() {
 		return department;
 	}
@@ -79,6 +112,7 @@ public class User {
 		this.department = department;
 	}
 	
+	
 	public Specialization getSpecialization() {
 		return specialization;
 	}
@@ -87,28 +121,6 @@ public class User {
 			throw new IllegalArgumentException("Department cannot be empty");
 		}
 		this.specialization = specialization;
-	}
-	
-	
-	public Role getRole() {
-		return role;
-	}
-	public void setRole(Role role) {
-		if (role == null) {
-            throw new IllegalArgumentException("Role cannot be empty");
-        }
-        this.role = role;
-	}
-	
-	
-	public String getUniversityName() {
-		return universityName;
-	}
-	public void setUniversityName(String universityName) {
-		if(universityName == null || universityName.trim().isEmpty()) {
-			throw new IllegalArgumentException("University name cannot be empty");
-		}
-		this.universityName = universityName;
 	}
 	
 	

@@ -1,10 +1,15 @@
 package com.lms.models;
 
 public enum Specialization {
-	Software_Technology,
-	Machine_Learning,
-	Cloud_Technology,
-	AR_VR,
-	Data_Science,
-	Cyber_Security
+	  SOFTWARE_ENGINEERING,
+	    DATA_SCIENCE,
+	    NETWORK_SECURITY,
+	    ARTIFICIAL_INTELLIGENCE,
+	    WEB_DEVELOPMENT,
+	    MOBILE_APP_DEVELOPMENT,
+	    DATABASE_MANAGEMENT,
+	    CLOUD_COMPUTING,
+	    MACHINE_LEARNING,
+	    CYBER_SECURITY;
 }
+
