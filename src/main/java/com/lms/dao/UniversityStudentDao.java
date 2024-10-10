@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
+import com.lms.models.Department;
+import com.lms.models.Role;
+import com.lms.models.Specialization;
+import com.lms.models.StudentType;
 import com.lms.models.UniversityStudent;
 import com.lms.util.DbConnect;
 import com.lms.util.DuplicateEntryException;
@@ -85,4 +90,57 @@ public class UniversityStudentDao {
 		
 		return false;
 	}
+	
+	
+	// Login the user
+	public UniversityStudent loginUser(String universityEmailOrStudentId, String password) throws SQLException, ClassNotFoundException {
+		
+		// Step 1: Prepare the query
+		final String findUser = "SELECT * FROM university_students WHERE (universityEmail = ? OR studentId = ?) AND password = ?";
+		
+		// Step 2: Establish the connection
+		try(Connection conn = DbConnect.getConnnection();
+				PreparedStatement st = conn.prepareStatement(findUser)) {
+			
+			// Step 3: Setting up the placeholder with actual values
+			st.setString(1, universityEmailOrStudentId);
+			st.setString(2, universityEmailOrStudentId);
+			st.setString(3, password);
+			
+			// Step 4: Execute the query and store the result into result set
+			ResultSet rs = st.executeQuery();
+			
+			// Step 5: If the user is found create a user object
+			if(rs.next()) {
+				UniversityStudent universityStudent = new UniversityStudent();
+				universityStudent.setRole(Role.valueOf(rs.getString("role")));
+				universityStudent.setStudentType(StudentType.valueOf(rs.getString("studentType")));
+				universityStudent.setFullname(rs.getString("fullname"));
+				universityStudent.setEmail(rs.getString("email"));
+				universityStudent.setPassword(rs.getString("password"));
+				universityStudent.setStudentId(rs.getString("studentId"));
+				universityStudent.setUniversityName(rs.getString("universityName"));
+				universityStudent.setDepartment(Department.valueOf(rs.getString("department")));
+				universityStudent.setSpecialization(Specialization.valueOf(rs.getString("specialization")));
+				universityStudent.setUniversityEmail(rs.getString("universityEmail"));
+				
+				// Set login status related fields
+				universityStudent.setLoggedIn(true);
+				universityStudent.setUpdatedAt(LocalDateTime.now());
+				
+				
+				// Step 6: Return the university student object
+				return universityStudent;
+				
+			}
+		} catch (SQLException e) {
+			throw new SQLException("Failed to connect to the database!", e.getMessage());
+		}
+		
+		return null;
+	}
 }
+
+
+
+

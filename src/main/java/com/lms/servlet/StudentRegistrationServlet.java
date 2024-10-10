@@ -46,7 +46,7 @@ public class StudentRegistrationServlet extends HttpServlet {
 		try {
 			
 			// Ensure user select the role first
-			String role = req.getParameter("role").toUpperCase();
+			String role = req.getParameter("role");
 			
 			// validate if the user select its role or not
 			if(role == null || role.trim().isEmpty()) {
@@ -160,7 +160,7 @@ public class StudentRegistrationServlet extends HttpServlet {
 					    boolean isExist = universityStudentDao.findUser(universityStudent.getEmail(), universityStudent.getStudentId());
 					    
 					    if(isExist) {
-					    	throw new DuplicateEntryException("User already exist with this username or email!", null);
+					    	throw new DuplicateEntryException("User already exist with this email or username!", null);
 					    }
 					    
 					    // Calling the DAO class method to register the university student
