@@ -28,6 +28,10 @@ public class User {
 		this.updatedAt = LocalDateTime.now();
 	}
 	
+	 public int getUserId() {
+	        return getUserId();
+	    }
+	
 	
 	public String getFullname() {
 		return fullname;

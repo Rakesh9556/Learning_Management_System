@@ -19,7 +19,6 @@
     </style>
 </head>
 <body>
-
 <% 
     String userType = (String) session.getAttribute("userType");
     String fullname = (String) session.getAttribute("fullname");
@@ -30,10 +29,14 @@
 <p><strong>Name:</strong> <%= fullname %></p>
 <p><strong>Email:</strong> <%= email %></p>
 
-<% if ("STUDENT".equals(userType)) { %>
-    <h2>Student Details</h2>
+<% if ("UNIVERSITY".equals(userType)) { %>
+    <h2>University Student Details</h2>
     <p><strong>Branch:</strong> <%= session.getAttribute("branch") %></p>
     <p><strong>Registration No:</strong> <%= session.getAttribute("regdNo") %></p>
+
+<% } else if ("INDIVIDUAL".equals(userType)) { %>
+    <h2>Individual Student Details</h2>
+    <p><strong>Branch:</strong> <%= session.getAttribute("branch") %></p>
     <p><strong>Username:</strong> <%= session.getAttribute("username") %></p>
 
 <% } else if ("FACULTY".equals(userType)) { %>
@@ -48,6 +51,7 @@
 <% } else { %>
     <p>User type is not recognized.</p>
 <% } %>
+
 
 </body>
 </html>

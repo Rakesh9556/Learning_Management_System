@@ -1,10 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -89,16 +90,23 @@
             color: #6e48aa;
             border-radius: 5px;
         }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 10px;
+        }
     </style>
     <script>
         function showFields() {
             var userType = document.getElementById("userType").value;
-            
+
+            // Hide all additional fields initially
             document.getElementById("universityFields").style.display = "none";
             document.getElementById("individualFields").style.display = "none";
             document.getElementById("facultyFields").style.display = "none";
             document.getElementById("branchField").style.display = "block";  
 
+            // Show specific fields based on user type
             if (userType === "UNIVERSITY") {
                 document.getElementById("universityFields").style.display = "block";
             } else if (userType === "INDIVIDUAL") {
@@ -118,17 +126,17 @@
         <h2>Register</h2>
         <form action="RegistrationServlet" method="post">
             <label for="fullname">Full Name:</label>
-            <input type="text" id="fullname" name="fullname" required><br><br>
+            <input type="text" id="fullname" name="fullname" required>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
+            <input type="email" id="email" name="email" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
+            <input type="password" id="password" name="password" required>
 
             <div id="branchField">
                 <label for="branch">Branch:</label>
-                <input type="text" id="branch" name="branch"><br><br>
+                <input type="text" id="branch" name="branch" required>
             </div>
 
             <label for="userType">Select User Type:</label>
@@ -138,24 +146,27 @@
                 <option value="INDIVIDUAL">Individual Student</option>
                 <option value="FACULTY">Faculty</option>
                 <option value="ADMIN">Admin</option>
-            </select><br><br>
+            </select>
 
             <div id="universityFields" style="display:none;">
                 <label for="regd_no">Registration No:</label>
-                <input type="text" id="regd_no" name="regd_no"><br><br>
+                <input type="text" id="regd_no" name="regd_no" required>
+                <span class="error-message">
+                    <%= request.getAttribute("registrationError") != null ? request.getAttribute("registrationError") : "" %>
+                </span>
             </div>
 
             <div id="individualFields" style="display:none;">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username"><br><br>
+                <input type="text" id="username" name="username" required >
             </div>
 
             <div id="facultyFields" style="display:none;">
                 <label for="joining_date">Joining Date:</label>
-                <input type="date" id="joining_date" name="joining_date"><br><br>
+                <input type="date" id="joining_date" name="joining_date" required>
 
                 <label for="designation">Designation:</label>
-                <input type="text" id="designation" name="designation"><br><br>
+                <input type="text" id="designation" name="designation" required>
             </div>
 
             <input type="submit" value="Register">
