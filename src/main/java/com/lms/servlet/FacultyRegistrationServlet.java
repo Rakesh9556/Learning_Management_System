@@ -118,8 +118,19 @@ public class FacultyRegistrationServlet extends HttpServlet {
                     List<String> permissions = Arrays.asList(permissionsStr.split(","));
 
                     // Step 5: Create the Faculty object
-                    Faculty faculty = new Faculty(roleEnum, firstname + " " + lastname, email, password, universityName,
-                            departmentEnum, specializationEnum, facultyId, joiningDateParsed, permissions);
+                    Faculty faculty = new Faculty();
+                    faculty.setRole(roleEnum);
+                    faculty.setFullname(firstname + " " + lastname);
+                    faculty.setEmail(email);
+                    faculty.setPassword(password);
+                    faculty.setUniversityName(universityName);
+                    faculty.setDepartment(departmentEnum);
+                    faculty.setSpecialization(specializationEnum);
+                    faculty.setFacultyId(facultyId);
+                    faculty.setJoiningDate(joiningDateParsed);
+                    faculty.setPermissions(permissions);
+                    //Faculty faculty = new Faculty(roleEnum, firstname + " " + lastname, email, password, universityName,
+                    //    departmentEnum, specializationEnum, facultyId, joiningDateParsed, permissions);
 
                     // Step 6: Check if user already exists with email or faculty ID
                     boolean isExist = facultyDao.findFaculty(faculty.getEmail(), faculty.getFacultyId());
