@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class FacultyDao {
@@ -107,17 +108,38 @@ public class FacultyDao {
 
             // Step 5: If the faculty is found, create a Faculty object
             if (rs.next()) {
-                Role role = Role.valueOf(rs.getString("role"));
-                String fullname = rs.getString("fullname");
-                String email = rs.getString("email");
-                String facultyId = rs.getString("facultyId");
-                String universityName = rs.getString("universityName");
-                Department department = Department.valueOf(rs.getString("department"));
-                Specialization specialization = Specialization.valueOf(rs.getString("specialization"));
-                LocalDate joiningDate = rs.getDate("joiningDate").toLocalDate();
-                List<String> permissions = List.of(rs.getString("permissions").split(","));
+            	
+//                Role role = Role.valueOf(rs.getString("role"));
+//                String fullname = rs.getString("fullname");
+//                String email = rs.getString("email");
+//                String facultyId = rs.getString("facultyId");
+//                String universityName = rs.getString("universityName");
+//                Department department = Department.valueOf(rs.getString("department"));
+//                Specialization specialization = Specialization.valueOf(rs.getString("specialization"));
+//                LocalDate joiningDate = rs.getDate("joiningDate").toLocalDate();
+//                List<String> permissions = List.of(rs.getString("permissions").split(","));
+            	
+//              return new Faculty(role, fullname, email, rs.getString("password"), universityName, department, specialization, facultyId, joiningDate, permissions);
 
-                return new Faculty(role, fullname, email, rs.getString("password"), universityName, department, specialization, facultyId, joiningDate, permissions);
+            	
+            	Faculty faculty = new Faculty();
+            	faculty.setRole(Role.valueOf(rs.getString("role")));
+            	faculty.setFullname(rs.getString("fullname"));
+            	faculty.setEmail(rs.getString("email"));
+            	faculty.setFacultyId(rs.getString("facultyId"));
+            	faculty.setUniversityName(rs.getString("universityName"));
+            	faculty.setDepartment(Department.valueOf(rs.getString("department")));
+            	faculty.setSpecialization(Specialization.valueOf(rs.getString("specialization")));
+            	faculty.setJoiningDate(rs.getDate("joiningDate").toLocalDate());
+            	faculty.setPermissions(List.of(rs.getString("permissions").split(",")));
+            	
+            	//Set login status related fields
+            	faculty.setLoggedIn(true);
+                faculty.setUpdatedAt(LocalDateTime.now());
+                
+                //Step 6: Return the university student object
+            	return faculty;
+
             }
         } catch (SQLException e) {
             throw new SQLException("Failed to connect to the database!", e.getMessage());
