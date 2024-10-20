@@ -1,6 +1,7 @@
 package com.lms.servlet;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,57 +54,48 @@ public class FacultyRegistrationServlet extends HttpServlet {
            // if role exist then check if the user is faculty or not
             if (role.equals("FACULTY")) {
                 // Step 2: Define the fields for the faculty
-                String firstname = req.getParameter("firstname");
-                String lastname = req.getParameter("lastname");
-                String email = req.getParameter("email");
-                String password = req.getParameter("password");
-                String universityName = req.getParameter("universityName");
-                String facultyId = req.getParameter("facultyId");
-                String joiningDate = req.getParameter("joiningDate");
-                String department = req.getParameter("department");
-                String specialization = req.getParameter("specialization");
-                String permissionsStr = req.getParameter("permissions"); // Comma-separated permissions
+            	 String facultyId = req.getParameter("facultyId");         // Faculty ID
+                 String firstname = req.getParameter("firstname");         // First name
+                 String lastname = req.getParameter("lastname");           // Last name
+                 String email = req.getParameter("email");                 // Email
+                 String password = req.getParameter("password");           // Password
+                 String universityName = req.getParameter("universityName"); // University name
+                 String department = req.getParameter("department");       // Department
+                 String specialization = req.getParameter("specialization"); // Specialization
+                 String joiningDate = req.getParameter("joiningDate");     // Joining date
+                 String permissionsStr = req.getParameter("permissions");  // Permissions (comma-separated)
 
-                // Step 3: Validate all the fields
-                if (firstname == null || firstname.trim().isEmpty()) {
-                    throw new ApiError(400, "First name is required!");
-                }
-
-                if (lastname == null || lastname.trim().isEmpty()) {
-                    throw new ApiError(400, "Last name is required!");
-                }
-
-                if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                    throw new ApiError(400, "Invalid email address!");
-                }
-
-                if (password == null || password.trim().isEmpty()) {
-                    throw new ApiError(400, "Password is required!");
-                }
-
-                if (universityName == null || universityName.trim().isEmpty()) {
-                    throw new ApiError(400, "University name is required!");
-                }
-
-                if (facultyId == null || facultyId.trim().isEmpty()) {
-                    throw new ApiError(400, "Faculty ID is required!");
-                }
-
-                if (joiningDate == null || joiningDate.trim().isEmpty()) {
-                    throw new ApiError(400, "Joining date is required!");
-                }
-
-                if (department == null) {
-                    throw new ApiError(400, "Department is required!");
-                }
-
-                if (specialization == null) {
-                    throw new ApiError(400, "Specialization is required!");
-                }
-
-                if (permissionsStr == null || permissionsStr.trim().isEmpty()) {
-                    throw new ApiError(400, "Permissions are required!");
-                }
+                 // Step 3: Validate all the fields
+                 if (facultyId == null || facultyId.trim().isEmpty()) {
+                     throw new ApiError(400, "Faculty ID is required!");
+                 }
+                 if (firstname == null || firstname.trim().isEmpty()) {
+                     throw new ApiError(400, "First name is required!");
+                 }
+                 if (lastname == null || lastname.trim().isEmpty()) {
+                     throw new ApiError(400, "Last name is required!");
+                 }
+                 if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                     throw new ApiError(400, "Invalid email address!");
+                 }
+                 if (password == null || password.trim().isEmpty()) {
+                     throw new ApiError(400, "Password is required!");
+                 }
+                 if (universityName == null || universityName.trim().isEmpty()) {
+                     throw new ApiError(400, "University name is required!");
+                 }
+                 if (department == null) {
+                     throw new ApiError(400, "Department is required!");
+                 }
+                 if (specialization == null) {
+                     throw new ApiError(400, "Specialization is required!");
+                 }
+                 if (joiningDate == null || joiningDate.trim().isEmpty()) {
+                     throw new ApiError(400, "Joining date is required!");
+                 }
+                 if (permissionsStr == null || permissionsStr.trim().isEmpty()) {
+                     throw new ApiError(400, "Permissions are required!");
+                 }
 
                 // Convert joiningDate to LocalDate
                 LocalDate joiningDateParsed = LocalDate.parse(joiningDate);
@@ -119,16 +111,16 @@ public class FacultyRegistrationServlet extends HttpServlet {
 
                     // Step 5: Create the Faculty object
                     Faculty faculty = new Faculty();
-                    faculty.setRole(roleEnum);
-                    faculty.setFullname(firstname + " " + lastname);
-                    faculty.setEmail(email);
-                    faculty.setPassword(password);
-                    faculty.setUniversityName(universityName);
-                    faculty.setDepartment(departmentEnum);
-                    faculty.setSpecialization(specializationEnum);
-                    faculty.setFacultyId(facultyId);
-                    faculty.setJoiningDate(joiningDateParsed);
-                    faculty.setPermissions(permissions);
+                    faculty.setRole(roleEnum);                                 // Set Role
+                    faculty.setFacultyId(facultyId);                           // Set Faculty ID
+                    faculty.setFullname(firstname + " " + lastname);           // Set Full Name
+                    faculty.setEmail(email);                                   // Set Email
+                    faculty.setPassword(password);                             // Set Password
+                    faculty.setUniversityName(universityName);                 // Set University Name
+                    faculty.setDepartment(departmentEnum);                     // Set Department
+                    faculty.setSpecialization(specializationEnum);             // Set Specialization
+                    faculty.setJoiningDate(joiningDateParsed);                 // Set Joining Date
+                    faculty.setPermissions(permissions);  
                     //Faculty faculty = new Faculty(roleEnum, firstname + " " + lastname, email, password, universityName,
                     //    departmentEnum, specializationEnum, facultyId, joiningDateParsed, permissions);
 
